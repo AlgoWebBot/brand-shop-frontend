@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import Navbar from '../Home/Navbar/Navbar';
 import Swal from 'sweetalert2'
+import { MyContext } from '../../Auth/AuthProvider';
+import axios from 'axios';
 
 const CartItem = () => {
 
     const cartItem = useLoaderData();
-    // console.log(cartItem)
     const navigate = useNavigate();
+    const [cart, setCart] = useState([])
+    const { user } = useContext(MyContext);
+    console.log(user?.reloadUserInfo?.email);
+
+    // http://localhost:5000/cart-products?email=shimul@gmail.com
+    useEffect(() => {
+        const getAllCat = async () => {
+            const res = await axios.get(`http://localhost:5000/cart-products?email=${user?.reloadUserInfo?.email}`);
+            console.log(res?.data);
+            setCart(res?.data)
+        }
+        getAllCat();
+    }, [])
 
     const deleteItem = id => {
         Swal.fire({
@@ -24,7 +38,9 @@ const CartItem = () => {
                     method: "DELETE",
                 })
                     .then(res => res.json())
-                    .then(data => navigate('/myCart'))
+                    .then(data => {
+                        window.location.reload();
+                    })
 
                 Swal.fire(
                     'Deleted!',
@@ -37,8 +53,8 @@ const CartItem = () => {
 
     return (
         <div>
-            <div className='bg-[#4b2b1f]'>
-                <div className='container mx-auto'>
+            <div className='sticky top-0 z-50'>
+                <div className=''>
                     <Navbar />
                 </div>
             </div>
@@ -46,7 +62,7 @@ const CartItem = () => {
                 <h1 className="text-5xl font-thin text-center mb-10">Your cart items</h1>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10'>
                     {
-                        cartItem.map(item =>
+                        cart && cart?.map(item =>
                             <div key={item._id} className='border-2 rounded-lg border-black flex justify-between items-center'>
                                 <div className='flex justify-start gap-8 items-center'>
                                     <img src={item?.image} alt="" className='h-40 w-40 rounded-lg' />

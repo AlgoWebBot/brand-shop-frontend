@@ -9,13 +9,14 @@ const Contact = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const phone = e.target.phone.value;
-
-        const details = {
-            name, email, phone
+        if (name && email && phone) {
+            window.alert('Message sent successfully:)')
+            e.target.reset()
+        } else {
+            window.alert('Give your full information and try again..:)')
         }
-        console.log(details);
-
     }
+
 
     return (
         <div>

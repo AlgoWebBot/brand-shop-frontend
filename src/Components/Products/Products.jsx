@@ -1,13 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../Home/Navbar/Navbar'
 import { Link, useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import { BsCheckLg } from 'react-icons/bs';
 import Slider from '../Slider/Slider';
+import axios from 'axios';
 
 const Products = () => {
 
-    const data = useLoaderData();
-    const id = useParams();
+    const { brand_name } = useParams();
+    console.log(brand_name);
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const getAllCat = async () => {
+            const res = await axios.get(`http://localhost:5000/products-by-name?name=apple`);
+            console.log(res?.data);
+            setData(res?.data)
+        }
+        getAllCat();
+    }, [brand_name])
 
     // working tomorrow-----------------------
 
@@ -16,11 +28,13 @@ const Products = () => {
             <div className='bg-[#4b2b1f]'>
                 <Navbar />
             </div>
-            <div className=''>
+            <div className='py-20 text-center text-bold text-4xl uppercase'>
                 <div className=''>
-                    <Slider id={id} />
+                    {/* <Slider id={brand_name} /> */}
+                    <h1>{brand_name}</h1>
                 </div>
             </div>
+            {/* map hobe */}
             <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 py-10 min-h-screen'>
                 {
                     data.length > 0 ?

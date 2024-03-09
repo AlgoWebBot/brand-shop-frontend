@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbar from '../Home/Navbar/Navbar'
 import { Link, useLoaderData } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { MyContext } from '../../Auth/AuthProvider'
 
 
 const ProductDetails = () => {
 
     const product = useLoaderData();
+    const { user } = useContext(MyContext);
+    console.log(user?.reloadUserInfo?.email);
     // console.log(product)
 
     const addToCart = () => {
@@ -17,24 +20,26 @@ const ProductDetails = () => {
         const brand_name = product.brand_name
         const price = product.price
 
-        const selectItem = { name, image, rating, brand_name, price }
+        const selectItem = { name, image, rating, brand_name, price, email: user?.reloadUserInfo?.email }
 
         // console.log(product)
-        fetch('https://brand-shop-zeta.vercel.app/carts', {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(selectItem),
-        })
-            .then(res => res.json())
-            .then(data =>
-                Swal.fire(
-                    'Good job!',
-                    'You product add to cart!',
-                    'success'
+        if (user?.reloadUserInfo?.email) {
+            fetch('https://brand-shop-zeta.vercel.app/carts', {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(selectItem),
+            })
+                .then(res => res.json())
+                .then(data =>
+                    Swal.fire(
+                        'Good job!',
+                        'You product add to cart!',
+                        'success'
+                    )
                 )
-            )
+        }
     }
 
     return (

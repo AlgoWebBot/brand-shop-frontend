@@ -27,7 +27,7 @@ const Banner = () => {
 
                 <div className='pt-8'>
                     <Link to='/contact'>
-                        <h1 className='btn bg-black text-white capitalize text-lg font-thin px-8'>]
+                        <h1 className='btn bg-black text-white capitalize text-lg font-thin px-8'>
                             <Link to='/contact'>
                                 <BsTelephoneFill className='text-lg font-thin mr-2' />
                             </Link>Call Us Now</h1>
