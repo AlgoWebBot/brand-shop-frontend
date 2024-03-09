@@ -27,7 +27,7 @@ const Navbar = () => {
     // console.log(darkMode)
 
     return (
-        <div className="navbar container py-8 mx-auto z-10 sticky top-0">
+        <div className="navbar py-8 mx-auto z-10 sticky top-0 bg-gray-500 shadow-xl w-full px-10">
             <div className="navbar-start">
                 <div className='flex justify-start items-center gap-2'>
                     <img src="/assets/logo/Poundit_e-commerce_website_Logo.svg.png" className='h-10 hidden lg:block' />

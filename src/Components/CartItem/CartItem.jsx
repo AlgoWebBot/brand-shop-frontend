@@ -1,14 +1,30 @@
-import React, { useState } from 'react'
-import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+
 import Navbar from '../Home/Navbar/Navbar';
 import Swal from 'sweetalert2'
 import Payment from './Payment';
+import { useContext, useEffect, useState } from 'react'
+import { useLoaderData, useNavigate } from 'react-router-dom'
+
+import { MyContext } from '../../Auth/AuthProvider';
+import axios from 'axios';
 
 const CartItem = () => {
     const [openModal, setOpenModal] = useState(false);
     const cartItem = useLoaderData();
-    // console.log(cartItem)
     const navigate = useNavigate();
+    const [cart, setCart] = useState([])
+    const { user } = useContext(MyContext);
+    console.log(user?.reloadUserInfo?.email);
+
+    // http://localhost:5000/cart-products?email=shimul@gmail.com
+    useEffect(() => {
+        const getAllCat = async () => {
+            const res = await axios.get(`http://localhost:5000/cart-products?email=${user?.reloadUserInfo?.email}`);
+            console.log(res?.data);
+            setCart(res?.data)
+        }
+        getAllCat();
+    }, [])
 
     const deleteItem = id => {
         Swal.fire({
@@ -25,7 +41,9 @@ const CartItem = () => {
                     method: "DELETE",
                 })
                     .then(res => res.json())
-                    .then(data => navigate('/myCart'))
+                    .then(data => {
+                        window.location.reload();
+                    })
 
                 Swal.fire(
                     'Deleted!',
@@ -38,8 +56,8 @@ const CartItem = () => {
 
     return (
         <div>
-            <div className='bg-[#4b2b1f]'>
-                <div className='container mx-auto'>
+            <div className='sticky top-0 z-50'>
+                <div className=''>
                     <Navbar />
                 </div>
             </div>
@@ -47,7 +65,7 @@ const CartItem = () => {
                 <h1 className="text-5xl font-thin text-center mb-10">Your cart items</h1>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10'>
                     {
-                        cartItem.map(item =>
+                        cart && cart?.map(item =>
                             <div key={item._id} className='border-2 rounded-lg border-black flex justify-between items-center'>
                                 <div className='flex justify-start gap-8 items-center'>
                                     <img src={item?.image} alt="" className='h-40 w-40 rounded-lg' />
@@ -91,8 +109,8 @@ const CartItem = () => {
                                 </button> */}
                                 <div>
                                     <button onClick={() => setOpenModal(true)} className="rounded-sm text-white" id="_modal_NavigateUI"><span className="sr-only">Buy Now</span>
-                                        <svg fill="#000000" height="80px" width="80px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            viewBox="0 0 305.41 305.41" xml:space="preserve">
+                                        <svg fill="#000000" height="80px" width="80px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 305.41 305.41" xmlSpace="preserve">
                                             <g>
                                                 <g>
                                                     <path d="M251.083,41.029H9.327C4.185,41.029,0,45.215,0,50.359V161.7c0,5.144,4.185,9.329,9.327,9.329h241.756

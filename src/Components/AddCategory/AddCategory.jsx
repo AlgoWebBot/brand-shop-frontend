@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import Navbar from '../Home/Navbar/Navbar';
 
 const AddCategory = () => {
 
@@ -21,17 +22,17 @@ const AddCategory = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             })
+            if (res.data?.acknowledged) {
+                window.alert('Category added successfully')
+            } else {
+                window.alert(res?.data?.message)
+            }
         }
-        if (res.data?.acknowledged) {
-            window.alert('Category added successfully')
-        } else {
-            window.alert(res?.data?.message)
-        }
-
     }
 
     return (
         <section>
+            <Navbar />
             <section className="relative flex flex-wrap lg:h-screen lg:items-center">
                 <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
                     <div className="mx-auto max-w-lg text-center">

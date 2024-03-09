@@ -14,7 +14,7 @@ const Home = () => {
 
     return (
         <div className=' dark:bg-gray-900'>
-            <div className='container mx-auto'>
+            <div className='mx-auto sticky top-0 z-50'>
                 <Navbar />
             </div>
             <Banner />

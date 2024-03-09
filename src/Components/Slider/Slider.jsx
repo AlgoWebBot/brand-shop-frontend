@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'react-slideshow-image/dist/styles.css'
 
-const Slider = ({id}) => {
+const Slider = ({ id }) => {
 
     const [image, setImage] = useState([])
 
@@ -12,15 +12,16 @@ const Slider = ({id}) => {
             .then(data => setImage(data));
     }, [])
 
-    // console.log(id)
+    console.log(id)
 
     // console.log(image[0]?.sliderImage[0]?.image1);
-    const foundImage = image.find(item => item.brand_name == id.brand_name);
+    const foundImage = image.find(item => console.log(item.brand_name.to));
+    console.log(foundImage);
     // console.log(foundImage.sliderImage)
 
     return (
         <div className="carousel w-full lg:h-[500px]">
-            <div id="slide5"  className="carousel-item relative w-full">
+            <div id="slide5" className="carousel-item relative w-full">
                 <img src={foundImage?.sliderImage[0]?.image1} className="w-full" />
                 <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                     <a href="#slide7" className="btn btn-circle">❮</a>
