@@ -13,7 +13,7 @@ const Navbar = () => {
     const logOutUser = () => {
         logOut()
             .then(res => console.log("Successfully login"))
-            .catch(err=> console.log(err.message))
+            .catch(err => console.log(err.message))
     }
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const Navbar = () => {
     // console.log(darkMode)
 
     return (
-        <div className="navbar container py-8 mx-auto z-10 relative">
+        <div className="navbar container py-8 mx-auto z-10 sticky top-0">
             <div className="navbar-start">
                 <div className='flex justify-start items-center gap-2'>
                     <img src="/assets/logo/Poundit_e-commerce_website_Logo.svg.png" className='h-10 hidden lg:block' />
@@ -39,8 +39,10 @@ const Navbar = () => {
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-black">
                         <li><NavLink to='/'>Home</NavLink></li>
+                        <li><NavLink to='/addCategory'>Add Category</NavLink></li>
                         <li><NavLink to='/addProduct'>Add Product</NavLink></li>
                         <li><NavLink to='/myCart'>My Cart</NavLink></li>
+                        <li><NavLink to='/aaa'>Gift Voucher</NavLink></li>
                     </ul>
                 </div>
             </div>
@@ -48,14 +50,16 @@ const Navbar = () => {
                 <Link to='/' className="lg:hidden text-2xl md:text-3xl font-bold text-white">Unity Shop</Link>
                 <ul className='hidden lg:flex justify-center items-center md:gap-2 lg:gap-16 text-xl text-white'>
                     <li><NavLink to='/'>Home</NavLink></li>
+                    <li><NavLink to='/addCategory'>Add Category</NavLink></li>
                     <li><NavLink to='/addProduct'>Add Product</NavLink></li>
                     <li><NavLink to='/myCart'>My Cart</NavLink></li>
+                    <li><NavLink to='/aaa'>Gift Voucher</NavLink></li>
                 </ul>
             </div>
             <div className="navbar-end lg:space-x-5">
-                
 
-                <div onClick={()=> setDarkMode(!darkMode)}>
+
+                <div onClick={() => setDarkMode(!darkMode)}>
                     <h1 className='text-lg lg:text-xl text-white font-thin py-1 px-4 cursor-pointer'>
                         {
                             darkMode ? <BsSun /> : <MdDarkMode />
@@ -65,12 +69,12 @@ const Navbar = () => {
 
 
                 <div>
-                    <h1 className="hidden lg:block text-xl text-white">{ user?.displayName }</h1>
+                    <h1 className="hidden lg:block text-xl text-white">{user?.displayName}</h1>
                 </div>
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full border-2 input-bordered border-black">
-                            <img src={ user?.photoURL } />
+                            <img src={user?.photoURL} />
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu lg:hidden menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

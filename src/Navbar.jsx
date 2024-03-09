@@ -44,7 +44,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-end space-x-5">
                 <div>
-                    <h1 className="hidden lg:block text-xl text-yellow-500">{user ? user.displayName : '' }</h1>
+                    <h1 className="hidden lg:block text-xl text-yellow-500">{user ? user.displayName : ''}</h1>
                 </div>
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -53,11 +53,11 @@ const Navbar = () => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu lg:hidden menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><Link to='#'>{ user ? user.displayName : '' }</Link></li>
+                        <li><Link to='#'>{user ? user.displayName : ''}</Link></li>
                         {
                             user ?
-                            <li onClick={logOutUser}><Link>Logout</Link></li>:
-                            <li><Link to='/login'>Login</Link></li>
+                                <li onClick={logOutUser}><Link>Logout</Link></li> :
+                                <li><Link to='/login'>Login</Link></li>
                         }
                     </ul>
                 </div>

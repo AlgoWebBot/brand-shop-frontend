@@ -8,7 +8,8 @@ const Products = () => {
 
     const data = useLoaderData();
     const id = useParams();
-    
+
+    // working tomorrow-----------------------
 
     return (
         <div>
@@ -22,8 +23,8 @@ const Products = () => {
             </div>
             <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 py-10 min-h-screen'>
                 {
-                    data.length > 0 ? 
-                        data.map(product => 
+                    data.length > 0 ?
+                        data.map(product =>
                             <div key={product._id} className="block rounded-lg p-4 shadow-xl h-[500px] shadow-indigo-100">
                                 <img
                                     alt="Home"
@@ -121,7 +122,7 @@ const Products = () => {
                                                 <p className="font-medium text-base">{product?.category}</p>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>

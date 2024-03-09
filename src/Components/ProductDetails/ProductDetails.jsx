@@ -17,7 +17,7 @@ const ProductDetails = () => {
         const brand_name = product.brand_name
         const price = product.price
 
-        const selectItem = {name, image, rating, brand_name, price}
+        const selectItem = { name, image, rating, brand_name, price }
 
         // console.log(product)
         fetch('https://brand-shop-zeta.vercel.app/carts', {
@@ -28,12 +28,12 @@ const ProductDetails = () => {
             body: JSON.stringify(selectItem),
         })
             .then(res => res.json())
-            .then(data => 
+            .then(data =>
                 Swal.fire(
                     'Good job!',
                     'You product add to cart!',
                     'success'
-                )    
+                )
             )
     }
 

@@ -13,6 +13,8 @@ import Registration from '../../Registration/Registration';
 import Login from '../../Login/Login';
 import Private from '../../Private/Private';
 import UpdateProduct from '../../UpdateProduct/UpdateProduct';
+import AddCategory from '../AddCategory/AddCategory';
+import Contact from '../Contact/Contact';
 
 const router = createBrowserRouter([
     {
@@ -30,9 +32,16 @@ const router = createBrowserRouter([
                 element: <Private><AddProduct /></Private>
             },
             {
+                path: '/addCategory',
+                element: <Private><AddCategory /></Private>
+            },
+            {
                 path: '/brand/:brand_name',
                 element: <Products />,
-                loader: ({ params }) =>fetch(`https://brand-shop-zeta.vercel.app/brand/${params.brand_name}`)
+            },
+            {
+                path: '/contact',
+                element: <Contact />,
             },
             {
                 path: '/details/:id',
