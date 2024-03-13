@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from '../Home/Navbar/Navbar'
+import axios from 'axios';
 
 const Contact = () => {
 
@@ -9,9 +10,14 @@ const Contact = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const phone = e.target.phone.value;
+        const message = e.target.message.value;
         if (name && email && phone) {
-            window.alert('Message sent successfully:)')
-            e.target.reset()
+
+            const res = await axios.post('http://localhost:5000/message', { name, email, phone, message })
+            if (res.data?.insertedId) {
+                window.alert('Message sent successfully:)')
+                e.target.reset();
+            }
         } else {
             window.alert('Give your full information and try again..:)')
         }
@@ -121,6 +127,7 @@ const Contact = () => {
                                         placeholder="Message"
                                         rows="8"
                                         id="message"
+                                        name='message'
                                     ></textarea>
                                 </div>
 

@@ -4,17 +4,32 @@ import './navbar.css'
 import { MyContext } from '../../../Auth/AuthProvider'
 import { MdDarkMode } from 'react-icons/md';
 import { BsSun } from 'react-icons/bs';
+import axios from 'axios';
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(MyContext);
     const [darkMode, setDarkMode] = useState(false);
 
+    console.log(user);
+
     const logOutUser = () => {
         logOut()
             .then(res => console.log("Successfully login"))
             .catch(err => console.log(err.message))
     }
+
+    const [admin, setAdmin] = useState([]);
+
+    useEffect(() => {
+        const getAllCat = async () => {
+            const res = await axios.get('http://localhost:5000/users');
+            console.log(res?.data);
+            setAdmin(res?.data)
+        }
+        getAllCat();
+    }, [])
+
 
     useEffect(() => {
         if (darkMode) {
@@ -25,6 +40,8 @@ const Navbar = () => {
     }, [darkMode])
 
     // console.log(darkMode)
+    const filterAdmin = admin?.find(adminuser => adminuser?.email === user?.reloadUserInfo?.email && adminuser?.role === 'admin');
+    console.log(filterAdmin);
 
     return (
         <div className="navbar py-8 mx-auto z-10 sticky top-0 bg-gray-500 shadow-xl w-full px-10">
@@ -42,7 +59,9 @@ const Navbar = () => {
                         <li><NavLink to='/addCategory'>Add Category</NavLink></li>
                         <li><NavLink to='/addProduct'>Add Product</NavLink></li>
                         <li><NavLink to='/myCart'>My Cart</NavLink></li>
-                        <li><NavLink to='/aaa'>Gift Voucher</NavLink></li>
+                        {
+                            filterAdmin && <li><NavLink to='/dashboard'>Dasboard</NavLink></li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -53,7 +72,9 @@ const Navbar = () => {
                     <li><NavLink to='/addCategory'>Add Category</NavLink></li>
                     <li><NavLink to='/addProduct'>Add Product</NavLink></li>
                     <li><NavLink to='/myCart'>My Cart</NavLink></li>
-                    <li><NavLink to='/aaa'>Gift Voucher</NavLink></li>
+                    {
+                        filterAdmin && <li><NavLink to='/dashboard'>Dasboard</NavLink></li>
+                    }
                 </ul>
             </div>
             <div className="navbar-end lg:space-x-5">

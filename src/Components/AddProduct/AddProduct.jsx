@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../Home/Navbar/Navbar'
 import Swal from 'sweetalert2'
 import axios from 'axios';
+import { MyContext } from '../../Auth/AuthProvider';
 
 
 const AddProduct = () => {
 
     const [cat, setCat] = useState([]);
+    const { user } = useContext(MyContext);
+    console.log(user?.reloadUserInfo?.email);
 
     useEffect(() => {
         const getAllCat = async () => {
@@ -27,27 +30,32 @@ const AddProduct = () => {
         const category = form.category.value;
         const brand_name = form.brand_name.value.toLowerCase();
         const description = form.description.value;
+        const email = user?.reloadUserInfo?.email;
 
-        const product = { name, image, price, brand_name, category, rating, description }
+        const product = { name, image, price, brand_name, category, rating, description, email }
         // console.log(product)
 
-        fetch('https://brand-shop-zeta.vercel.app/products', {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(product),
-        })
-            .then(res => res.json())
-            .then(data => {
-                form.reset()
-                Swal.fire(
-                    'Successfully!',
-                    'Product added successfully!',
-                    'success'
+        if (email) {
+            fetch('https://brand-shop-zeta.vercel.app/products', {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(product),
+            })
+                .then(res => res.json())
+                .then(data => {
+                    e.target.reset()
+                    Swal.fire(
+                        'Successfully!',
+                        'Product added successfully!',
+                        'success'
+                    )
+                }
                 )
-            }
-            )
+        } else {
+            window.alert('Please login before add product');
+        }
 
     }
 

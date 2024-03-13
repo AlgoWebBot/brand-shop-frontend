@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../Components/Home/Navbar/Navbar'
 import Swal from 'sweetalert2'
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
+import { MyContext } from '../Auth/AuthProvider'
+import axios from 'axios'
 
 const UpdateProduct = () => {
 
     // const id = useParams();
     const data = useLoaderData();
-    // console.log(data)
-    // const navigate = useNavigate()
+    const [cat, setCat] = useState([]);
+    const { user } = useContext(MyContext);
+    console.log(user?.reloadUserInfo?.email);
+
+    useEffect(() => {
+        const getAllCat = async () => {
+            const res = await axios.get('http://localhost:5000/categories');
+            console.log(res?.data);
+            setCat(res?.data)
+        }
+        getAllCat();
+    }, [])
 
     const updateProduct = e => {
         e.preventDefault();
@@ -19,8 +31,9 @@ const UpdateProduct = () => {
         const rating = form.rating.value;
         const category = form.category.value;
         const brand_name = form.brand_name.value.toLowerCase();
+        const email = user?.reloadUserInfo?.email;
 
-        const updateProduct = { name, image, price, brand_name, category, rating }
+        const updateProduct = { name, image, price, brand_name, category, rating, email }
 
         fetch(`https://brand-shop-zeta.vercel.app/update/${data._id}`, {
             method: "PUT",
@@ -38,7 +51,7 @@ const UpdateProduct = () => {
                     'success'
                 )
             }
-        )
+            )
     }
 
     return (
@@ -64,14 +77,13 @@ const UpdateProduct = () => {
                         <div className='space-y-4'>
                             <label className='text-xl font-bold'>Brand Name</label>
                             <select name="brand_name" type="text" className='select text-gray-500 select-bordered w-full border-none'>
-                                <option>Apple</option>
-                                <option>Samsung</option>
-                                <option>Microsoft</option>
-                                <option>Google</option>
-                                <option>HP</option>
-                                <option>Intel</option>
-                                <option>Sony</option>
-                                <option>Lenovo</option>
+                                {
+                                    cat?.map((item, index) => (
+                                        <option key={index} value={item?.name}>
+                                            {item?.name}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                         <div className='space-y-4'>

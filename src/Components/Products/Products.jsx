@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../Home/Navbar/Navbar'
 import { Link, useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import { BsCheckLg } from 'react-icons/bs';
 import Slider from '../Slider/Slider';
 import axios from 'axios';
+import { MyContext } from '../../Auth/AuthProvider';
 
 const Products = () => {
 
     const { brand_name } = useParams();
-    console.log(brand_name);
-
+    const { user } = useContext(MyContext);
+    console.log(user?.reloadUserInfo?.email);
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const getAllCat = async () => {
-            const res = await axios.get(`http://localhost:5000/products-by-name?name=apple`);
+            const res = await axios.get(`http://localhost:5000/products-by-name?name=${brand_name}`);
             console.log(res?.data);
             setData(res?.data)
         }
@@ -56,9 +57,12 @@ const Products = () => {
                                                     <div className="mt-1.5 sm:mt-0 border-2 border-black py-1 px-2 rounded-full">
                                                         <p className="font-medium text-lg">Details</p>
                                                     </div>
-                                                </Link><Link to={`/update/${product?._id}`}>
-                                                    <h1 className='rounded-full border-2 cursor-pointer border-black px-2 py-1 flex justify-center items-center'>Update Product</h1>
                                                 </Link>
+                                                {
+                                                    product?.email === user?.reloadUserInfo?.email && <Link to={`/update/${product?._id}`}>
+                                                        <h1 className='rounded-full border-2 cursor-pointer border-black px-2 py-1 flex justify-center items-center'>Update Product</h1>
+                                                    </Link>
+                                                }
                                             </div>
                                         </div>
 

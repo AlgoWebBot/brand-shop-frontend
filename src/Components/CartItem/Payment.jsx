@@ -5,12 +5,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import { FaHouseUser } from "react-icons/fa6";
 import { MdOutlineErrorOutline } from "react-icons/md"
 import CheckOutForm from "./CheckOutForm";
-const stripePromise = loadStripe(import.meta.env.VITE_PAYMENY_GATEWAY_PK);
+const stripePromise = loadStripe(`pk_test_51OF1GOHUw9AEQwQEYulw5HbopwWcijlpUqETbPM1v7AD08xv2kWdWSp6Cl9O06iiaVJTCDoqef8OqvkeBC8aC0lQ00D4BtI4ft`);
 
-console.log("thisss key", import.meta.env.VITE_PAYMENY_GATEWAY_PK);
-const Payment = ({item}) => {
+// console.log("thisss key", import.meta.env.VITE_PAYMENY_GATEWAY_PK);
+const Payment = ({ item }) => {
 
-console.log(item);
+    console.log(item);
 
     return (
         <>
@@ -22,7 +22,7 @@ console.log(item);
 
                             <div className="">
                                 <Elements stripe={stripePromise}>
-                                    <CheckOutForm item={item}/>
+                                    <CheckOutForm item={item} />
                                 </Elements>
                             </div>
                         </div>

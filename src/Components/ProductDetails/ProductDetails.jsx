@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Navbar from '../Home/Navbar/Navbar'
-import { Link, useLoaderData } from 'react-router-dom'
+import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { MyContext } from '../../Auth/AuthProvider'
 
@@ -10,6 +10,7 @@ const ProductDetails = () => {
     const product = useLoaderData();
     const { user } = useContext(MyContext);
     console.log(user?.reloadUserInfo?.email);
+    const navigate = useNavigate();
     // console.log(product)
 
     const addToCart = () => {
@@ -19,6 +20,7 @@ const ProductDetails = () => {
         const rating = product.rating
         const brand_name = product.brand_name
         const price = product.price
+        console.log(user?.reloadUserInfo?.email);
 
         const selectItem = { name, image, rating, brand_name, price, email: user?.reloadUserInfo?.email }
 
@@ -42,10 +44,39 @@ const ProductDetails = () => {
         }
     }
 
+    const deleteItem = async (id) => {
+        console.log(id);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/products/${id}`, {
+                    method: "DELETE",
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        navigate('/')
+                        // window.location.reload();
+                    })
+            }
+        })
+    }
+
     return (
         <div>
-            <div className='bg-[#4b2b1f]'>
-                <div className='container mx-auto'>
+            <div className='w-full'>
+                <div className=''>
                     <Navbar />
                 </div>
             </div>
@@ -101,9 +132,13 @@ const ProductDetails = () => {
                             </div>
                         </dl>
                     </div>
-                    <div className='flex justify-start items-center gap-5 lg:pt-10'>
-                        <h1 onClick={addToCart} className='rounded-full border-2 cursor-pointer border-black w-52 p-2 flex justify-center items-center'>Add to cart</h1>
-                    </div>
+                    {
+                        product.email !== user?.reloadUserInfo?.email ? <div className='flex justify-start items-center gap-5 lg:pt-10'>
+                            <h1 onClick={addToCart} className='rounded-full border-2 cursor-pointer border-black w-52 p-2 flex justify-center items-center'>Add to cart</h1>
+                        </div> : <div className='flex justify-start items-center gap-5 lg:pt-10'>
+                            <h1 onClick={() => deleteItem(product?._id)} className='rounded-full border-2 bg-red-500 hover:bg-red-400 cursor-pointer border-black w-52 p-2 flex justify-center items-center'>Delete Product</h1>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

@@ -15,6 +15,13 @@ import Private from '../../Private/Private';
 import UpdateProduct from '../../UpdateProduct/UpdateProduct';
 import AddCategory from '../AddCategory/AddCategory';
 import Contact from '../Contact/Contact';
+import PaymentHistory from '../CartItem/PaymentHistory';
+import Route from '../Dashboard/Route';
+import DasHome from '../Dashboard/DasHome';
+import User from '../Dashboard/User';
+import Category from '../Dashboard/Category';
+import Product from '../Dashboard/Product';
+import Message from '../Dashboard/Message';
 
 const router = createBrowserRouter([
     {
@@ -65,6 +72,36 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Registration />,
+            },
+            {
+                path: '/payment-details/:paymentId',
+                element: <PaymentHistory />,
+            },
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <Route />,
+        children: [
+            {
+                path: '/dashboard',
+                element: <DasHome />,
+            },
+            {
+                path: '/dashboard/users',
+                element: <User />,
+            },
+            {
+                path: '/dashboard/category',
+                element: <Category />,
+            },
+            {
+                path: '/dashboard/product',
+                element: <Product />,
+            },
+            {
+                path: '/dashboard/message',
+                element: <Message />,
             },
         ]
     }
