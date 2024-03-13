@@ -1,5 +1,6 @@
 import React from 'react'
 import BgImage from '/assets/banner-image/01.jpg'
+import image from "../../../../public/assets/banner-image/desk.jpg"
 // import Marquee from "react-fast-marquee";
 import { Link } from 'react-router-dom';
 import { BsTelephoneFill, BsSearch } from 'react-icons/bs';
@@ -9,7 +10,7 @@ const Banner = () => {
     return (
         <div className='max-h-screen -mt-[118px] lg:-mt-[193px] w-full top-0 bg-black bg-blend-overlay bg-opacity-40'
             style={{
-                backgroundImage: `url(${BgImage})`, backgroundSize: 'cover',
+                backgroundImage: `url(${image})`, backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}>
 

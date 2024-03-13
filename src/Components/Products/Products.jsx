@@ -5,7 +5,16 @@ import { BsCheckLg } from 'react-icons/bs';
 import Slider from '../Slider/Slider';
 import axios from 'axios';
 import { MyContext } from '../../Auth/AuthProvider';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+
+// import required modules
+import { Autoplay, Navigation } from 'swiper/modules';
 const Products = () => {
 
     const { brand_name } = useParams();
@@ -29,6 +38,26 @@ const Products = () => {
             <div className='bg-[#4b2b1f]'>
                 <Navbar />
             </div>
+         <div> <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Navigation]}
+        className="mySwiper"
+      >
+        <SwiperSlide><img src="https://i.postimg.cc/7Z46TXJw/home-office-1867759-1280.jpg" alt=""  className='w-full h-[500px]'/></SwiperSlide>
+        <SwiperSlide><img src="https://i.postimg.cc/BZxf13TP/student-849821-1280.jpg" alt="" className='w-full h-[500px]' /></SwiperSlide>
+        <SwiperSlide><img src="https://i.postimg.cc/J73Szq8b/drone-1080844-1280.jpg" alt="" className='w-full h-[500px]'/></SwiperSlide>
+       
+      </Swiper></div>
+
             <div className='py-20 text-center text-bold text-4xl uppercase'>
                 <div className=''>
                     {/* <Slider id={brand_name} /> */}
