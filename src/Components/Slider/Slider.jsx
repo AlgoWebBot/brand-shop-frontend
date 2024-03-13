@@ -43,7 +43,6 @@ const Slider = ({ id }) => {
                 </div>
             </div>
         </div>
-
     )
 }
 

@@ -31,6 +31,17 @@ const Products = () => {
         getAllCat();
     }, [brand_name])
 
+    const [cat, setCat] = useState([]);
+
+    useEffect(() => {
+        const getAllCat = async () => {
+            const res = await axios.get('http://localhost:5000/categories');
+            console.log(res?.data);
+            setCat(res?.data)
+        }
+        getAllCat();
+    }, [])
+
     // working tomorrow-----------------------
 
     return (
@@ -38,25 +49,30 @@ const Products = () => {
             <div className='bg-[#4b2b1f]'>
                 <Navbar />
             </div>
-         <div> <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Autoplay, Navigation]}
-        className="mySwiper"
-      >
-        <SwiperSlide><img src="https://i.postimg.cc/7Z46TXJw/home-office-1867759-1280.jpg" alt=""  className='w-full h-[500px]'/></SwiperSlide>
-        <SwiperSlide><img src="https://i.postimg.cc/BZxf13TP/student-849821-1280.jpg" alt="" className='w-full h-[500px]' /></SwiperSlide>
-        <SwiperSlide><img src="https://i.postimg.cc/J73Szq8b/drone-1080844-1280.jpg" alt="" className='w-full h-[500px]'/></SwiperSlide>
-       
-      </Swiper></div>
+            <div> <Swiper
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
+                pagination={{
+                    clickable: true,
+                }}
+                navigation={true}
+                modules={[Autoplay, Navigation]}
+                className="mySwiper"
+            >
+                {
+                    cat && cat?.map((item, index) =>
+                        <SwiperSlide key={index}>
+                            <img src={`http://localhost:5000/image/${item.image}`} alt="" className='w-full h-[500px]' />
+                        </SwiperSlide>
+
+                    )
+                }
+
+            </Swiper></div>
 
             <div className='py-20 text-center text-bold text-4xl uppercase'>
                 <div className=''>

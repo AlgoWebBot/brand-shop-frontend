@@ -20,10 +20,12 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.17.0",
+    "react-simple-typewriter": "^5.0.1",
     "react-slideshow-image": "^4.3.0",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.7.32",
-    "swiper": "^11.0.7"
+    "swiper": "^11.0.7",
+    "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

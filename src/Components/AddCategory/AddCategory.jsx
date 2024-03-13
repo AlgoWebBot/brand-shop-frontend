@@ -36,10 +36,10 @@ const AddCategory = () => {
             <section className="relative flex flex-wrap lg:h-screen lg:items-center">
                 <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
                     <div className="mx-auto max-w-lg text-center">
-                        <h1 className="text-2xl font-bold sm:text-3xl">Get started today with Fokinni Bazar!</h1>
+                        <h1 className="text-2xl font-bold sm:text-3xl">Get started today with Second Shop!</h1>
 
                         <p className="mt-4 text-gray-500">
-                            You can create new test categories, new test sets in an existing category, and new subsets in an existing test set. You can also define new object types for which you want to create tests.
+                            You can create new categories and also create your selling product advertise under this categories. Lets's create a new categories.
                         </p>
                     </div>
 
